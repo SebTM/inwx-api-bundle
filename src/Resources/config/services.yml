@@ -1,0 +1,10 @@
+services:
+    inwx_api:
+        arguments:
+            - "%inwx_api.environment%"
+            - "%inwx_api.username%"
+            - "%inwx_api.password%"
+            - "%inwx_api.language%"
+            - "%inwx_api.debug%"
+        class: SebTM\INWX\Domrobot
+        public: true

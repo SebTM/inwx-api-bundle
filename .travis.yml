@@ -1,0 +1,54 @@
+language: php
+sudo: false
+
+env:
+  global:
+  - secure: p1AHe7WuwIKb/kzGisKsAFCBeiBQFF71p01TWfhvhawo1OF+ytfuAWQ9OUVFbBlANdiX2VbF8LkK1Pnkj0NLAHSry1kdyhLyEw54gTaOB66O1hf/1GBP8p9MljtGtDcBvreTtA3huEjW9eAyBeFD0IcN8NxNx6nKct7RsOHy+isiDbhezqwrYzoKVax5TaqTGb5zy1XeJRUbR4k7ZthKTcygvapmGEPLg3/Qidp6qPO2MhGwTWHu7oBUdE0cUbzrNVr1PCYZ6MYqQzLLUJDNCgsss/ap+2FTxz8ePLSXP8ce+zao0Mr3W+DCI+X1tHkgCSk9b1usj8RemUzu6dWSZqbAo2XyVWhlUSqgKDS43Dou17A35q9Dw6DkfbVhZQv9nAjhq492HcdhYBITg822L/sSo1oOems2awZlV9vRyr10ugMN6gI+KuyZkRyH36aO76IwjDx6+LL8rjrr1IXYV9EFCWWGS79Wa4QQaug5KvBc7vIaMPUGvUGhkZ2gYQuBN7cREGpgdie97dBlWA/UdCo9ecpWEzO5S2/UBu7fmRncAvFLFnW/UR2ZhYKXtY52BwBsmGQ/4LaJY7LaUGlptrf3Z6N6WC2Pev3V2be0KvcoCsnq2S/ZKgk0oN+SofTAKkm6EA8Ozl8MITlXTQKzkHcUH/VKH/uITIF5jsgsc88=
+  - secure: ha1UWXrQE555rvQ+UQCYf4lDdoAFui8NPNvEilr55Q4E3mWH58wHi6BI7XrAZR3I61V+FLUXRmGtucyOhHIJOeTryZT21PL8hm/MHt54k0A0VZ7oweO2cNQe+gFdaN1ibt5Dxyf2VSpiabnCSyjrbBgQYlVUCJKKUxiC2+V/PUmY5RU74d3yKWBzxnELYe6T3x0bHpYVKiTOuMMIg2Wg0iVvyTPJM4MlKHiYXLIsgk0FcL1wnBJyFWg2RJKAUsAwZFgc6G1TNTckAY60NBoX/5jNM3sqTtPws5s/nikqOM4QARz+L8TzQodUD0zJe3QfTVuC31Q3xhQq1vOg+RxENUscI+nApSPEbUWaGRQ/mPU+ToWgUzyRR80upnsgYOncPGeXMsq90fP73DDYZYOXE8P4tDz5JPsCF8kajyed2GeyzYBUD+XfZ6eYjAagfrLCP71GdQGkdcGzbz2OSBv84jdfaGT6xpRJx78OvuCm0pawU+ZPyK55Q1UWOW6aQijNVySHO15ND5R9VLmpYpgBbWZRBGAfnBV1U3BA7XtvR/shIzDeBJHIrygvQPIw3SV8stICIDsQANHHQxlggTbiJSfeDwMHToN/dFhuwN2Pp4xS9zok666Oniga+KuhROo4VyGFy6YV2fx1GQIAWxLW/MfC5KlPcenVi0hj8h1CXW4=
+
+matrix:
+  fast_finish: true
+  include:
+  - php: 5.6
+    env: SYMFONY_VERSION=2.7.*
+  - php: 5.6
+    env: SYMFONY_VERSION=2.8.*
+  - php: 5.6
+    env: SYMFONY_VERSION=3.4.*
+  - php: 7.0
+    env: SYMFONY_VERSION=2.7.*
+  - php: 7.0
+    env: SYMFONY_VERSION=2.8.*
+  - php: 7.0
+    env: SYMFONY_VERSION=3.4.*
+  - php: 7.1
+    env: SYMFONY_VERSION=2.7.*
+  - php: 7.1
+    env: SYMFONY_VERSION=2.8.*
+  - php: 7.1
+    env: SYMFONY_VERSION=3.4.*
+  - php: 7.1
+    env: SYMFONY_VERSION=4.0.*
+  - php: 7.2
+    env: SYMFONY_VERSION=2.7.*
+  - php: 7.2
+    env: SYMFONY_VERSION=2.8.*
+  - php: 7.2
+    env: SYMFONY_VERSION=3.4.*
+  - php: 7.2
+    env: SYMFONY_VERSION=4.0.*
+
+before_install:
+- phpenv config-rm xdebug.ini || echo "xdebug not available";
+- echo "memory_limit=1G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
+
+install:
+- if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update "symfony/framework-bundle:${SYMFONY_VERSION}"; fi;
+- composer install --no-interaction
+
+before_script:
+- wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -O php-cs-fixer && chmod +x php-cs-fixer
+
+script:
+- "./vendor/bin/phpunit -c phpunit.dist.xml"
+- "./php-cs-fixer fix --config .phpcs.php --diff --dry-run --no-interaction -v"

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.0/phpunit.xsd"
+    backupGlobals="false"
+    colors="true"
+>
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="display_errors" value="On" />
+        <ini name="display_startup_errors" value="On" />
+        <ini name="date.timezone" value="Europe/Berlin" />
+        <env name="APP_ENV" value="test" />
+        <env name="APP_DEBUG" value="1" />
+    </php>
+
+    <testsuites>
+        <testsuite name="INWX-Api-Bundle tests">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
