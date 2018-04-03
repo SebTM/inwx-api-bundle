@@ -51,4 +51,4 @@ before_script:
 
 script:
 - "./vendor/bin/phpunit -c phpunit.dist.xml"
-- "./php-cs-fixer fix --config .phpcs.php --diff --dry-run --no-interaction -v"
+- "./php-cs-fixer fix --diff --dry-run --no-interaction -v"
