@@ -1,7 +1,6 @@
 # INWX Service Provider for Symfony
 
-[![Build Status](https://travis-ci.org/SebTM/inwx-api-bundle.svg?branch=master)](https://travis-ci.org/SebTM/inwx-api-bundle)
-[![Total Downloads](https://img.shields.io/packagist/dt/SebTM/inwx-api-bundle.svg)](https://packagist.org/packages/SebTM/inwx-api-bundle)
+[![Build Status](https://travis-ci.com/SebTM/inwx-api-bundle.svg?branch=master)](https://travis-ci.com/SebTM/inwx-api-bundle)[![Total Downloads](https://img.shields.io/packagist/dt/SebTM/inwx-api-bundle.svg)](https://packagist.org/packages/SebTM/inwx-api-bundle)
 [![GitHub license](https://img.shields.io/github/license/SebTM/inwx-api-bundle.svg)](https://github.com/SebTM/inwx-api-bundle/blob/master/LICENSE.md)
 
 A Symfony bundle for including the [INWX PHP-Client](https://github.com/inwx/php-client).
