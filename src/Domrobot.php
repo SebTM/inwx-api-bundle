@@ -3,6 +3,7 @@
 namespace SebTM\INWX;
 
 use INWX\Domrobot as BaseDomrobot;
+use SebTM\INWX\Exception\UnsupportedEnvironmentException;
 
 class Domrobot extends BaseDomrobot
 {
@@ -18,12 +19,12 @@ class Domrobot extends BaseDomrobot
      * @param string $language
      * @param bool   $debug
      *
-     * @throws \Exception
+     * @throws UnsupportedEnvironmentException
      */
     public function __construct($environment, $username, $password, $language = 'en', $debug = false)
     {
         $this->environment = $environment;
-        parent::__construct($this->getAddress($environment));
+        parent::__construct($this->getAddress($this->environment));
 
         $this->setLanguage($language);
         $this->setDebug($debug);
@@ -41,9 +42,9 @@ class Domrobot extends BaseDomrobot
     /**
      * @param string $environment
      *
-     * @throws \Exception Unsupported environment
-     *
      * @return string
+     *
+     * @throws UnsupportedEnvironmentException
      */
     protected function getAddress($environment)
     {
@@ -55,7 +56,7 @@ class Domrobot extends BaseDomrobot
                 return 'https://api.ote.domrobot.com/xmlrpc/';
 
             default:
-                throw new \Exception('Unsupported environment!');
+                throw new UnsupportedEnvironmentException();
         }
     }
 }
