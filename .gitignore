@@ -1,8 +1,5 @@
-tests/var/cache/*
-!tests/var/cache/.gitkeep
-tests/var/logs/*
-!tests/var/logs/.gitkeep
-vendor/
+/build/
+/vendor/
 
 .php_cs.cache
 composer.lock

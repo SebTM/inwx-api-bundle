@@ -1,0 +1,6 @@
+inwx_api:
+  environment: test
+  username: test
+  password: test
+  language: en
+  debug: true
