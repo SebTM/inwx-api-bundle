@@ -1,6 +1,8 @@
 # INWX Service Provider for Symfony
 
-[![Build Status](https://travis-ci.com/SebTM/inwx-api-bundle.svg?branch=master)](https://travis-ci.com/SebTM/inwx-api-bundle)[![Total Downloads](https://img.shields.io/packagist/dt/SebTM/inwx-api-bundle.svg)](https://packagist.org/packages/SebTM/inwx-api-bundle)
+[![Build Status](https://travis-ci.com/SebTM/inwx-api-bundle.svg?branch=master)](https://travis-ci.com/SebTM/inwx-api-bundle)
+[![Coverage Status](https://coveralls.io/repos/github/SebTM/inwx-api-bundle/badge.svg)](https://coveralls.io/github/SebTM/inwx-api-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/SebTM/inwx-api-bundle.svg)](https://packagist.org/packages/SebTM/inwx-api-bundle)
 [![GitHub license](https://img.shields.io/github/license/SebTM/inwx-api-bundle.svg)](https://github.com/SebTM/inwx-api-bundle/blob/master/LICENSE.md)
 
 A Symfony bundle for including the [INWX PHP-Client](https://github.com/inwx/php-client).
@@ -13,7 +15,7 @@ requiring the `sebtm/inwx-api-bundle` package in your project's `composer.json`:
 ```json
 {
     "require": {
-        "sebtm/inwx-api-bundle": "~0.1"
+        "sebtm/inwx-api-bundle": "~0.2"
     }
 }
 ```

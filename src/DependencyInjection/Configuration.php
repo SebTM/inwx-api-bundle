@@ -7,20 +7,38 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    /**
+     * @return TreeBuilder
+     */
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('inwx_api');
 
         $rootNode
             ->children()
-            ->scalarNode('environment')->defaultValue('test')->end()
-            ->scalarNode('username')->isRequired()->end()
-            ->scalarNode('password')->isRequired()->end()
-            ->scalarNode('language')->defaultValue('en')->end()
-            ->booleanNode('debug')->defaultFalse()->end()
+            ->enumNode('environment')
+            ->values(
+                        array(
+                            'production',
+                            'test',
+                        )
+                    )
+            ->defaultValue('test')
             ->end()
-        ;
+            ->scalarNode('username')
+            ->isRequired()
+            ->end()
+            ->scalarNode('password')
+            ->isRequired()
+            ->end()
+            ->scalarNode('language')
+            ->defaultValue('en')
+            ->end()
+            ->booleanNode('debug')
+            ->defaultFalse()
+            ->end()
+            ->end();
 
         return $treeBuilder;
     }
