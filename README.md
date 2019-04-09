@@ -15,7 +15,7 @@ requiring the `sebtm/inwx-api-bundle` package in your project's `composer.json`:
 ```json
 {
     "require": {
-        "sebtm/inwx-api-bundle": "~0.2"
+        "sebtm/inwx-api-bundle": "~0.3"
     }
 }
 ```
