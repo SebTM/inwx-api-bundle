@@ -9,10 +9,10 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('inwx_api');
+        $treeBuilder = new TreeBuilder('inwx_api');
 
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->children()
             ->booleanNode('debug')
             ->defaultFalse()
