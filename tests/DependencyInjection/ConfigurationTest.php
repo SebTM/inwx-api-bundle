@@ -19,11 +19,12 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function testConfiguration(): void
     {
         $expectedConfiguration = array(
-            'environment' => 'test',
+            'debug' => true,
+            'environment' => 'production',
+            'json' => false,
+            'language' => 'de',
             'username' => 'test',
             'password' => 'test',
-            'language' => 'en',
-            'debug' => true,
         );
 
         $this->assertProcessedConfigurationEquals(

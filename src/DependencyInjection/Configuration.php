@@ -7,9 +7,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * @return TreeBuilder
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
@@ -17,26 +14,29 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+            ->booleanNode('debug')
+            ->defaultFalse()
+            ->end()
             ->enumNode('environment')
             ->values(
                         array(
                             'production',
-                            'test',
+                            'development',
                         )
                     )
-            ->defaultValue('test')
+            ->defaultValue('development')
+            ->end()
+            ->booleanNode('json')
+            ->defaultTrue()
+            ->end()
+            ->scalarNode('language')
+            ->defaultValue('en')
             ->end()
             ->scalarNode('username')
             ->isRequired()
             ->end()
             ->scalarNode('password')
             ->isRequired()
-            ->end()
-            ->scalarNode('language')
-            ->defaultValue('en')
-            ->end()
-            ->booleanNode('debug')
-            ->defaultFalse()
             ->end()
             ->end();
 
