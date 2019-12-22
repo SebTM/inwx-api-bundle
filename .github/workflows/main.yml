@@ -35,14 +35,5 @@ jobs:
                 run: ./vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction -v
             -   name: Run tests
                 run: ./vendor/bin/phpunit -c phpunit.dist.xml
-            -   name: Coveralls Parallel
-                uses: coverallsapp/github-action@master
-                with:
-                    github-token: ${{ secrets.COVERALLS_TOKEN }}
-                    parallel: true
-                    path-to-lcov: build/logs/clover.xml
-            -   name: Coveralls Finished
-                uses: coverallsapp/github-action@master
-                with:
-                    github-token: ${{ secrets.COVERALLS_TOKEN }}
-                    parallel-finished: true
+            -   name: Send results to coveralls
+                run: ./vendor/bin/php-coveralls
