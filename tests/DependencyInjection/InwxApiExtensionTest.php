@@ -34,9 +34,6 @@ class InwxApiExtensionTest extends AbstractExtensionTestCase
         );
     }
 
-    /**
-     * @return array
-     */
     protected function getMinimalConfiguration(): array
     {
         return array(

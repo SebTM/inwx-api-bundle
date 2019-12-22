@@ -5,7 +5,6 @@ namespace SebTM\INWX\Tests;
 use PHPUnit\Framework\TestCase;
 use SebTM\INWX\Domrobot;
 use SebTM\INWX\Exception\LoginUnsuccessfulException;
-use SebTM\INWX\Exception\UnsupportedEnvironmentException;
 
 /**
  * @covers \SebTM\INWX\Domrobot
@@ -13,67 +12,160 @@ use SebTM\INWX\Exception\UnsupportedEnvironmentException;
 class DomrobotTest extends TestCase
 {
     /**
-     * @covers \SebTM\INWX\Domrobot::getApiUrl()
-     *
-     * @throws UnsupportedEnvironmentException
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::getDebug
      */
-    public function testGetApiUrlProduction(): void
+    public function testDebugDefault(): void
     {
-        $domrobot = new Domrobot('production', 'test', 'test');
+        $domrobot = new Domrobot('test', 'test');
 
-        $this->assertSame(
-            'https://api.domrobot.com/xmlrpc/',
-            $domrobot->getApiUrl()
-        );
+        $this->assertFalse($domrobot->getDebug());
     }
 
     /**
-     * @covers \SebTM\INWX\Domrobot::__construct()
-     * @covers \SebTM\INWX\Domrobot::getApiUrl()
-     * @covers \SebTM\INWX\Domrobot::getDebug()
-     * @covers \SebTM\INWX\Domrobot::getEnvironment()
-     * @covers \SebTM\INWX\Domrobot::getLanguage()
-     * @covers \SebTM\INWX\Domrobot::setDebug()
-     * @covers \SebTM\INWX\Domrobot::setLanguage()
-     *
-     * @throws UnsupportedEnvironmentException
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::getDebug
      */
-    public function testInitialization(): void
+    public function testDebugFalse(): void
     {
-        $debug = true;
-        $environment = 'test';
-        $language = 'en';
+        $domrobot = new Domrobot('test', 'test', array('debug' => false));
 
-        $domrobot = new Domrobot($environment, 'test', 'test', $language, $debug);
-
-        $this->assertSame($debug, $domrobot->getDebug());
-        $this->assertSame($environment, $domrobot->getEnvironment());
-        $this->assertSame($language, $domrobot->getLanguage());
-        $this->assertSame(
-            'https://api.ote.domrobot.com/xmlrpc/',
-            $domrobot->getApiUrl()
-        );
+        $this->assertFalse($domrobot->getDebug());
     }
 
     /**
-     * @covers \SebTM\INWX\Domrobot::login()
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::getDebug
+     * @covers \SebTM\INWX\Domrobot::setDebug
+     */
+    public function testDebugTrue(): void
+    {
+        $domrobot = new Domrobot('test', 'test', array('debug' => true));
+
+        $this->assertTrue($domrobot->getDebug());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::isLive
+     * @covers \SebTM\INWX\Domrobot::isOte
+     */
+    public function testEnvironmentDefault(): void
+    {
+        $domrobot = new Domrobot('test', 'test');
+
+        $this->assertFalse($domrobot->isLive());
+        $this->assertTrue($domrobot->isOte());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::isLive
+     * @covers \SebTM\INWX\Domrobot::isOte
+     */
+    public function testEnvironmentDevelopment(): void
+    {
+        $domrobot = new Domrobot('test', 'test', array('environment' => 'development'));
+
+        $this->assertFalse($domrobot->isLive());
+        $this->assertTrue($domrobot->isOte());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::isLive
+     * @covers \SebTM\INWX\Domrobot::useLive
+     */
+    public function testEnvironmentProduction(): void
+    {
+        $domrobot = new Domrobot('test', 'test', array('environment' => 'production'));
+
+        $this->assertTrue($domrobot->isLive());
+        $this->assertFalse($domrobot->isOte());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::isJson
+     * @covers \SebTM\INWX\Domrobot::isXml
+     */
+    public function testJsonDefault(): void
+    {
+        $domrobot = new Domrobot('test', 'test');
+
+        $this->assertTrue($domrobot->isJson());
+        $this->assertFalse($domrobot->isXml());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::isJson
+     * @covers \SebTM\INWX\Domrobot::isXml
+     * @covers \SebTM\INWX\Domrobot::useXml
+     */
+    public function testJsonFalse(): void
+    {
+        $domrobot = new Domrobot('test', 'test', array('json' => false));
+
+        $this->assertFalse($domrobot->isJson());
+        $this->assertTrue($domrobot->isXml());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::isJson
+     * @covers \SebTM\INWX\Domrobot::isXml
+     */
+    public function testJsonTrue(): void
+    {
+        $domrobot = new Domrobot('test', 'test', array('json' => true));
+
+        $this->assertTrue($domrobot->isJson());
+        $this->assertFalse($domrobot->isXml());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::getLanguage
+     */
+    public function testLanguageDefault(): void
+    {
+        $expectedLanguage = 'en';
+        $domrobot = new Domrobot('test', 'test');
+
+        $this->assertSame($expectedLanguage, $domrobot->getLanguage());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::__construct
+     * @covers \SebTM\INWX\Domrobot::getLanguage
+     * @covers \SebTM\INWX\Domrobot::setLanguage
+     */
+    public function testLanguageNotDefault(): void
+    {
+        $expectedLanguage = 'de';
+        $domrobot = new Domrobot('test', 'test', array('language' => $expectedLanguage));
+
+        $this->assertSame($expectedLanguage, $domrobot->getLanguage());
+    }
+
+    /**
+     * @covers \SebTM\INWX\Domrobot::loginWrapper()
      *
      * @throws LoginUnsuccessfulException
-     * @throws UnsupportedEnvironmentException
      */
     public function testLoginUnsuccessful(): void
     {
         $this->expectException(LoginUnsuccessfulException::class);
 
-        $domrobot = new Domrobot('test', 'test', 'test');
-        $domrobot->login();
+        $domrobot = new Domrobot('test', 'test');
+        $domrobot->loginWrapper();
     }
 
     /**
-     * @covers \SebTM\INWX\Domrobot::login()
+     * @covers \SebTM\INWX\Domrobot::loginWrapper()
      *
      * @throws LoginUnsuccessfulException
-     * @throws UnsupportedEnvironmentException
      */
     public function testLoginSuccessful(): void
     {
@@ -84,21 +176,8 @@ class DomrobotTest extends TestCase
             $this->markTestSkipped('Secret variables for successful login-test not available!');
         }
 
-        $domrobot = new Domrobot('test', $username, $password);
-        $result = $domrobot->login();
+        $result = (new Domrobot($username, $password))->loginWrapper();
 
         $this->assertTrue($result);
-    }
-
-    /**
-     * @covers \SebTM\INWX\Domrobot::__construct()
-     *
-     * @throws UnsupportedEnvironmentException
-     */
-    public function testUnsupportedEnvironment(): void
-    {
-        $this->expectException(UnsupportedEnvironmentException::class);
-
-        new Domrobot('unsupported', 'test', 'test');
     }
 }
