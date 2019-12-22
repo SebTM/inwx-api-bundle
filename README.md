@@ -1,6 +1,6 @@
-# INWX Service Provider for Symfony
+# INWX-API-Bundle
 
-[![Build Status](https://travis-ci.com/SebTM/inwx-api-bundle.svg?branch=master)](https://travis-ci.com/SebTM/inwx-api-bundle)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSebTM%2Finwx-api-bundle%2Fbadge&style=flat)](https://actions-badge.atrox.dev/SebTM/inwx-api-bundle/goto)
 [![Coverage Status](https://coveralls.io/repos/github/SebTM/inwx-api-bundle/badge.svg)](https://coveralls.io/github/SebTM/inwx-api-bundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/SebTM/inwx-api-bundle.svg)](https://packagist.org/packages/SebTM/inwx-api-bundle)
 [![GitHub license](https://img.shields.io/github/license/SebTM/inwx-api-bundle.svg)](https://github.com/SebTM/inwx-api-bundle/blob/master/LICENSE.md)
