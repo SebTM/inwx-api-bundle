@@ -9,14 +9,11 @@ class Configuration implements ConfigurationInterface
 {
     protected const ROOT_NODE = 'inwx_api';
 
-    /**
-     * @return TreeBuilder
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder(self::ROOT_NODE);
 
-        $root = method_exists($treeBuilder, 'getRootNode') ?
+        $root = \method_exists($treeBuilder, 'getRootNode') ?
             $treeBuilder->getRootNode() :
             $treeBuilder->root(self::ROOT_NODE);
 
