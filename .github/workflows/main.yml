@@ -40,7 +40,7 @@ jobs:
                 with:
                     github-token: ${{ secrets.COVERALLS_TOKEN }}
                     parallel: true
-
+                    path-to-lcov: build/logs/clover.xml
             -   name: Coveralls Finished
                 uses: coverallsapp/github-action@master
                 with:
