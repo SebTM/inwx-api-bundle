@@ -35,5 +35,10 @@ jobs:
                 run: ./vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction -v
             -   name: Run tests
                 run: ./vendor/bin/phpunit -c phpunit.dist.xml
-            -   name: Send results to coveralls
-                run: ./vendor/bin/php-coveralls
+                env:
+                    INWX_API_USERNAME: ${{ secrets.INWX_API_USERNAME }}
+                    INWX_API_PASSWORD: ${{ secrets.INWX_API_PASSWORD }}
+            -   name: Send to coveralls
+                run: ./vendor/bin/php-coveralls -v
+                env:
+                    COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
