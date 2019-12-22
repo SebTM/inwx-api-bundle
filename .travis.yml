@@ -2,56 +2,56 @@ language: php
 sudo: false
 
 cache:
-  directories:
-    - "$HOME/.composer/cache"
+    directories:
+        - "$HOME/.composer/cache"
 
 matrix:
-  fast_finish: true
-  include:
-    - php: 7.2
-      env: SYMFONY_VERSION=3.4.*
-    - php: 7.2
-      env: SYMFONY_VERSION=4.2.*
-    - php: 7.2
-      env: SYMFONY_VERSION=4.3.*
-    - php: 7.2
-      env: SYMFONY_VERSION=4.4.*
-    - php: 7.2
-      env: SYMFONY_VERSION=5.0.*
-    - php: 7.3
-      env: SYMFONY_VERSION=3.4.*
-    - php: 7.3
-      env: SYMFONY_VERSION=4.2.*
-    - php: 7.3
-      env: SYMFONY_VERSION=4.3.*
-    - php: 7.3
-      env: SYMFONY_VERSION=4.4.*
-    - php: 7.3
-      env: SYMFONY_VERSION=5.0.*
-    - php: 7.4
-      env: SYMFONY_VERSION=3.4.*
-    - php: 7.4
-      env: SYMFONY_VERSION=4.2.*
-    - php: 7.4
-      env: SYMFONY_VERSION=4.3.*
-    - php: 7.4
-      env: SYMFONY_VERSION=4.4.*
-    - php: 7.4
-      env: SYMFONY_VERSION=5.0.*
+    fast_finish: true
+    include:
+        -   php: 7.2
+            env: SYMFONY_VERSION=3.4.*
+        -   php: 7.2
+            env: SYMFONY_VERSION=4.2.*
+        -   php: 7.2
+            env: SYMFONY_VERSION=4.3.*
+        -   php: 7.2
+            env: SYMFONY_VERSION=4.4.*
+        -   php: 7.2
+            env: SYMFONY_VERSION=5.0.*
+        -   php: 7.3
+            env: SYMFONY_VERSION=3.4.*
+        -   php: 7.3
+            env: SYMFONY_VERSION=4.2.*
+        -   php: 7.3
+            env: SYMFONY_VERSION=4.3.*
+        -   php: 7.3
+            env: SYMFONY_VERSION=4.4.*
+        -   php: 7.3
+            env: SYMFONY_VERSION=5.0.*
+        -   php: 7.4
+            env: SYMFONY_VERSION=3.4.*
+        -   php: 7.4
+            env: SYMFONY_VERSION=4.2.*
+        -   php: 7.4
+            env: SYMFONY_VERSION=4.3.*
+        -   php: 7.4
+            env: SYMFONY_VERSION=4.4.*
+        -   php: 7.4
+            env: SYMFONY_VERSION=5.0.*
 
 before_install:
-- echo "memory_limit=1G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
+    - echo "memory_limit=1G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
 
 install:
-- if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/framework-bundle:${SYMFONY_VERSION}; fi
-- composer install --no-interaction
+    - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/framework-bundle:${SYMFONY_VERSION}; fi
+    - composer install --no-interaction
 
 before_script:
-- mkdir -p build/logs/
+    - mkdir -p build/logs/
 
 script:
-- ./vendor/bin/phpunit -c phpunit.dist.xml
-- ./vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction -v
+    - ./vendor/bin/phpunit -c phpunit.dist.xml
+    - ./vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction -v
 
 after_success:
-- travis_retry php vendor/bin/php-coveralls
+    - travis_retry php vendor/bin/php-coveralls

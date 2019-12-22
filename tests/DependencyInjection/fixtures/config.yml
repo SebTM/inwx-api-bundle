@@ -1,7 +1,7 @@
 inwx_api:
-  debug: true
-  environment: production
-  json: false
-  language: de
-  username: test
-  password: test
+    debug: true
+    environment: production
+    json: false
+    language: de
+    username: test
+    password: test
