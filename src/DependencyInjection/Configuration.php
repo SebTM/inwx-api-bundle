@@ -7,23 +7,28 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+    protected const ROOT_NODE = 'inwx_api';
+
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('inwx_api');
+        $treeBuilder = new TreeBuilder(self::ROOT_NODE);
 
-        $treeBuilder
-            ->getRootNode()
+        $root = \method_exists($treeBuilder, 'getRootNode') ?
+            $treeBuilder->getRootNode() :
+            $treeBuilder->root(self::ROOT_NODE);
+
+        $root
             ->children()
             ->booleanNode('debug')
             ->defaultFalse()
             ->end()
             ->enumNode('environment')
             ->values(
-                        array(
-                            'production',
-                            'development',
-                        )
-                    )
+                array(
+                    'production',
+                    'development',
+                )
+            )
             ->defaultValue('development')
             ->end()
             ->booleanNode('json')
